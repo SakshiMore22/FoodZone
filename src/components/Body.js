@@ -1,12 +1,26 @@
 import Card from "../components/Card";
-import resList1 from "../utils/mockData";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {SWIGGY_API_URL} from "../utils/common";
+import Shimmer from "./Shimmer";
+
 
 const Body=()=>{
   //state variables
-  const [resList,setresList]=useState(resList1);
+  const [resList,setresList]=useState([]);
 
-    return(
+  useEffect(()=>{
+    fetchData()
+  },[]);
+
+  const fetchData = async () => {
+    const data= await fetch(SWIGGY_API_URL);
+    const json=  await data.json();
+    console.log(json);
+    setresList(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+  };
+
+    return resList.length==0?(<Shimmer />):(
+
       <div className="body">
         {/* Top-Rated Restraunts */}
         <div className="filter">

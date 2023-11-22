@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     border: 1px solid black;
+    cursor: pointer;
 }
 
 .logo{
@@ -30,16 +31,15 @@
 .res-card{
     width: 250px;
     border-radius: 5px;
-    box-shadow: -1px 4px 20px 14px rgba(175, 174, 174, 0.2);
+    box-shadow: -1px 60px 50px 50px rgba(138, 137, 137, 0.2);
     background-color: rgb(243, 239, 235);
-    
     padding: 5px;
-    margin: 5px;
+    margin: 10px;
 }
 
 .res-card:hover{
-    border: 1px solid rgb(2, 2, 2) ;
     cursor: pointer;
+    transform: scale(1.12,1.05);
 }
 
 .res-card > img{
@@ -53,3 +53,69 @@
    margin: 10px;
    cursor: pointer;
 }
+
+.login-btn{
+    padding: 20px;
+    margin: 15px;
+    border: none;
+}
+.shimmer-container{
+    margin: 25px;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.shimmer-card {
+    margin: 15px;
+    flex-basis: 250px;
+    padding: 5px;
+    width: 250px;
+    height: 400px;
+    background-color: #f0f0f0;
+    border-color: black;
+    box-shadow: 0px 82px 50px 70px rgba(221, 215, 215, 0.2);
+  }
+  .shimmer-title {
+    width: 60%;
+    margin-top: 30px;
+  }
+  .shimmer-tags {
+    width: 80%;
+    margin-top: 20px;
+  }
+  .shimmer-details {
+    width: 100%;
+    margin-top: 28px;
+  }
+  .shimmer-container .shimmer-img {
+    width: 96%;
+    height: 50%;
+    margin: auto;
+    border-radius: 10px;
+  }
+  
+  .stroke {
+    height: 15px;
+    background: #777;
+  }
+
+
+  /*Animation to Shimmer Component Cards */
+
+  .animate {
+    animation: shimmer 4s;
+    animation-iteration-count: infinite;
+    background: linear-gradient(to right, #e6e6e6 5%, #cccccc 25%, #e6e6e6 35%);
+    background-size: 1000px 100%;
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position: -1000px 0;
+    }
+    to {
+      background-position: 1000px 0;
+    }
+  }
