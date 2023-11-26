@@ -27,6 +27,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch
 }
 .res-card{
     width: 250px;
@@ -35,6 +36,7 @@
     background-color: rgb(243, 239, 235);
     padding: 5px;
     margin: 10px;
+    word-wrap: normal;
 }
 
 .res-card:hover{
@@ -49,11 +51,19 @@
     border-radius: 10px;
 }
 
+.filter{
+  display: flex;
+}
 .filter-btn{
    margin: 10px;
    cursor: pointer;
 }
-
+.search{
+  margin: 10px;
+}
+.search-btn{
+  /* margin: 5px; */
+}
 .login-btn{
     padding: 20px;
     margin: 15px;
