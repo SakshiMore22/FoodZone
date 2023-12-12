@@ -11,3 +11,9 @@ export const REST_MENU_URL=
 "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.137437106051486&lng=72.93617960210086&restaurantId=";
 
 export default LOGO_URL;
+
+export const MENU_ITEM_TYPE_KEY = "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory";
+
+export const MENU_ITEM_TYPE_KEY_NEW= "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory";
+
+export const RESTAURANT_TYPE_KEY = "type.googleapis.com/swiggy.presentation.food.v2.Restaurant";

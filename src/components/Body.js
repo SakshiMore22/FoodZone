@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {SWIGGY_API_URL} from "../utils/common";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 import { Link } from "react-router-dom";
 
 
@@ -11,6 +12,15 @@ const Body=()=>{
   const [resList,setresList]=useState([]);
   const [resFiltList,setresFiltList]=useState([]);
   const [searchText,setsearchText]=useState("");
+
+  const onlineStatus=useOnlineStatus();
+
+  if(onlineStatus==false)
+    return(
+      <h1>
+        Oops ! Please check your internet connection   .
+      </h1>
+    )
 
   useEffect(()=>{
     fetchData()
@@ -22,6 +32,9 @@ const Body=()=>{
     setresList(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     setresFiltList(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
   };
+
+
+   
 
     return resList?.length==0?(<Shimmer />):(
       
@@ -36,11 +49,10 @@ const Body=()=>{
              }} />
 
             <button className="search-btn" onClick={()=>{
-              console.log(searchText);
               const searchData=resList.filter((res)=>(
                 res.info.name.toLowerCase().includes(searchText.toLowerCase()))
                 );
-              console.log(searchData)
+              // console.log(searchData)
               return searchData.length==0 ?(setresFiltList(resList)):(setresFiltList(searchData));
             }}>Search</button>
           </div> 
@@ -58,7 +70,6 @@ const Body=()=>{
         {/* {Rest Cards} */}
         
         <div className="res-container">
-          {console.log(resList)}
           { resFiltList?.map((rest)=>(
             <Link 
               key={rest?.info?.id}

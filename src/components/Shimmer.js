@@ -1,4 +1,5 @@
 import { shimmer_card_unit } from "../utils/common";
+
 const ShimmerCard=()=>{
     return (
         <div className="shimmer-card">

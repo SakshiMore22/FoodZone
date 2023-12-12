@@ -1,44 +1,45 @@
-import { useEffect, useState } from "react";
+
 import { useParams } from "react-router-dom";
-import { REST_MENU_URL } from "../utils/common";
+import { RESTAURANT_TYPE_KEY , MENU_ITEM_TYPE_KEY, MENU_ITEM_TYPE_KEY_NEW } from "../utils/common";
+import useRestMenu from "../utils/useRestMenu";
 import Shimmer from "./Shimmer";
 
 const RestMenu=()=>{
-    const [resMenu , setresMenu]=useState(null);
-
+    
     const {resId}=useParams();
 
-    useEffect(()=>{
-        fetchMenu();
-    },[])
+    const resMenu=useRestMenu(resId);
 
-    const fetchMenu= async()=>{
-        const data= await fetch(REST_MENU_URL+resId);
-        const json= await data.json();
-        setresMenu(json);
-    }
 
     if (resMenu==null) return <Shimmer/>;
 
-    const {name , cuisines , costForTwo}=resMenu?.data?.cards[0]?.card?.card?.info;
+    const {name , cuisines , costForTwo} = resMenu?.data?.cards?.map(x => x.card)?.
+    find(x => x && x.card['@type'] === RESTAURANT_TYPE_KEY)?.card?.info || null;
 
-    let {itemCards}=resMenu?.data.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
-    console.log(itemCards);
-    if (itemCards==undefined){
-        console.log("hii");
-        itemCards =resMenu?.data.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+    const itemCards =
+        resMenu?.data?.cards.find(x=> x.groupedCard)?.
+        groupedCard?.cardGroupMap?.REGULAR?.
+        cards?.map(x => x.card?.card)?.
+        filter(x=> x['@type'] == MENU_ITEM_TYPE_KEY)?.
+        map(x=> x.itemCards).flat().map(x=> x.card?.info) ||
+
+        resMenu?.data?.cards.find(x=> x.groupedCard)?.
+        groupedCard?.cardGroupMap?.REGULAR?.
+        cards?.map(x => x.card?.card)?.
+        filter(x=> x['@type'] == MENU_ITEM_TYPE_KEY_NEW)?.categories
+        ?.map(x=> x.itemCards).flat().map(x=> x.card?.info)|| [];
+
         console.log(itemCards);
-    }
-    console.log(itemCards);
+    
     return(
         <div className="menu">
             <h1>{name}</h1>
             <h3>{cuisines.join(' , ')} - {"  Rs."+costForTwo/100}</h3>
-            <ul>
+            <ul key="resId">
                 {itemCards.map((item)=>(
-                    <li>
-                        {item?.card?.info?.name} - {"Rs."}
-                        {item?.card?.info?.price/100}
+                    <li >
+                        {item?.name} - {"Rs."}
+                        {item?.price/100}
                     </li>
                 ))}
             </ul>
