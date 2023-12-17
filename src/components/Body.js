@@ -41,14 +41,14 @@ const Body=()=>{
       <div className="body">
 
         {/* Top-Rated Restraunts */}
-        <div className="filter">
+        <div className="filter flex justify-center">
 
-          <div className="search">
-            <input type="text" className="search-box" value={searchText} onChange={(e)=>
+          <div className="search m-4 p-4 ">
+            <input type="text" className="border border-solid border-black w-[400]" value={searchText} onChange={(e)=>
               {setsearchText(e.target.value);
              }} />
 
-            <button className="search-btn" onClick={()=>{
+            <button className="px-4 py-1 bg-orange-600 m-4 rounded-md" onClick={()=>{
               const searchData=resList.filter((res)=>(
                 res.info.name.toLowerCase().includes(searchText.toLowerCase()))
                 );
@@ -56,20 +56,21 @@ const Body=()=>{
               return searchData.length==0 ?(setresFiltList(resList)):(setresFiltList(searchData));
             }}>Search</button>
           </div> 
-
-          <button className="filter-btn" 
-          onClick={()=>{
-            const topList = resList.filter(
-              (res)=> (res.info.avgRating>4)
-              );
-            return topList.length==0 ?(<h1>No Data Found!</h1>):(setresFiltList(topList));
-          }}
-          >Top Rated Restraunts</button>
+          <div className="search m-4 p-4 ">
+            <button className="filter-btn px-4 py-1 bg-orange-600 m-4 rounded-md" 
+            onClick={()=>{
+              const topList = resList.filter(
+                (res)=> (res.info.avgRating>4)
+                );
+              return topList.length==0 ?(<h1>No Data Found!</h1>):(setresFiltList(topList));
+            }}
+            >Top Rated Restraunts</button>
+          </div>
         </div>
 
         {/* {Rest Cards} */}
         
-        <div className="res-container">
+        <div className="flex flex-wrap justify-around ">
           { resFiltList?.map((rest)=>(
             <Link 
               key={rest?.info?.id}
